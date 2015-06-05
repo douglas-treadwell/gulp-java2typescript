@@ -50,4 +50,20 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+	it('should prefix interface names and file names with I- if requested', function(done) {
+		var stream = gulp.src('test/input/SuperTest.java')
+		    .pipe(j2tt({
+		    	prefixInterfaces: true
+		    }))
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/ISuperTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/ISuperTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
 });

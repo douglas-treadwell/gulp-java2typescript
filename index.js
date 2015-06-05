@@ -7,6 +7,8 @@ var PluginError = gulp_util.PluginError;
 var currentFile;
 var currentFileErrors;
 var suppressConsoleErrors = false;
+var prefixInterfaces = false;
+var currentClassName;
 
 function reportError(error) {
     if ( !suppressConsoleErrors ) {
@@ -66,6 +68,7 @@ function transform(javaClass) {
         return;
     } else {
         className = classNameMatch[1];
+        currentClassName = className;
     }
 
     var inheritanceMatch = javaClass.match(classWithSuperclassRegex);
@@ -87,10 +90,17 @@ function transform(javaClass) {
 
     var _interface;
 
+    var interfaceName = className;
+
+    if ( prefixInterfaces ) {
+        interfaceName = 'I' + interfaceName;
+        inheritsFrom = 'I' + inheritsFrom;
+    }
+
     if ( inheritsFrom ) {
-        _interface = 'interface ' + className + ' extends ' + inheritsFrom + ' {\n';
+        _interface = 'interface ' + interfaceName + ' extends ' + inheritsFrom + ' {\n';
     } else {
-        _interface = 'interface ' + className + ' {\n';
+        _interface = 'interface ' + interfaceName + ' {\n';
     }
 
     for ( var getter in getterTypes ) {
@@ -106,12 +116,18 @@ function transform(javaClass) {
 
 module.exports = function (options) {
     suppressConsoleErrors = options && options.suppressConsoleErrors;
-    
+    prefixInterfaces = options && options.prefixInterfaces;
+
     return through.obj(function (file, enc, cb) {
         currentFile = file;
 
         var transformed = transform(file.contents.toString());
         file.contents = new Buffer(transformed);
+
+        if ( prefixInterfaces ) {
+            file = new gulp_util.File(file);
+            file.path = file.base + 'I' + currentClassName + '.java';
+        }
 
         if ( currentFileErrors.length > 0 ) {
             file.path = gulp_util.replaceExtension(file.path, '.d.ts.errors');
