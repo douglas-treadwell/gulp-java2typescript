@@ -1,1 +1,1 @@
-type EnumTest = string;
+declare type EnumTest = string;
