@@ -78,9 +78,17 @@ function transform(javaClass) {
         inheritsFrom = inheritanceMatch[3];
     }
 
-    var getterRegex = /public ([\w\<\>\[\], ]+) (?:get|is)([A-Z]\w+)/g;
+    var fieldTypes = { };
 
-    var getterTypes = { };
+    var jsonTypeInfoRegex = /@JsonTypeInfo\(\s+use = JsonTypeInfo.Id.NAME,\s+include = JsonTypeInfo.As.PROPERTY,\s+property = "(\w+)"\s*\)/;
+
+    var jsonTypeInfoMatch = javaClass.match(jsonTypeInfoRegex);
+
+    if ( jsonTypeInfoMatch ) {
+        fieldTypes[ jsonTypeInfoMatch[1] ] = 'string';
+    }
+
+    var getterRegex = /public ([\w\<\>\[\], ]+) (?:get|is)([A-Z]\w+)/g;
 
     var match;
 
@@ -91,7 +99,7 @@ function transform(javaClass) {
 
             fieldForGetter = fieldForGetter[0].toLowerCase() + fieldForGetter.substring(1);
 
-            getterTypes[fieldForGetter] = returnType;
+            fieldTypes[fieldForGetter] = returnType;
         })();
     }
 
@@ -110,9 +118,9 @@ function transform(javaClass) {
         _interface = 'interface ' + interfaceName + ' {\n';
     }
 
-    for ( var getter in getterTypes ) {
-        if ( getterTypes.hasOwnProperty(getter) ) {
-            _interface += '\t' + getter + ': ' + typescriptType(getterTypes[getter]) + ';\n'
+    for ( var field in fieldTypes ) {
+        if ( fieldTypes.hasOwnProperty(field) ) {
+            _interface += '\t' + field + ': ' + typescriptType(fieldTypes[field]) + ';\n'
         }
     }
 

@@ -1,0 +1,3 @@
+interface JsonTypeInfoTest {
+	type: string;
+}

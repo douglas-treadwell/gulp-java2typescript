@@ -80,4 +80,18 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+	it('should add a string field based on JsonTypeInfo', function(done) {
+		var stream = gulp.src('test/input/JsonTypeInfoTest.java')
+		    .pipe(j2tt())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/JsonTypeInfoTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/JsonTypeInfoTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
 });
