@@ -15,14 +15,9 @@ Unsupported Cases
 
 Cases Requiring Manual Intervention
 ---------------------------------
-* Classes which have annotation @JsonTypeInfo or inherit from a superclass
-  with that annotation.
-  - A separate interface file can be created, or the original output modified,
-    to include the type property parameter. (TypeScript merges interface
-    definitions when they do not conflict.)
 * Classes which have annotation @JsonTypeName (although this could be
     supported trivially even in this simple tool).
-* Likely classes using other annotations.
+* Likely classes using other annotations (but @JsonTypeInfo is supported).
 * Classes with getters returning collection types not detected by this tool.
 
 Example Plugin Usage
