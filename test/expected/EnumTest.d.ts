@@ -1,0 +1,1 @@
+type EnumTest = string;

@@ -1,4 +1,0 @@
-interface ErrorTest {
-	longArray: any;
-	templateType: any;
-}

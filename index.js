@@ -47,11 +47,8 @@ function typescriptType(javaType) {
         return arrayTypeMatch[2] + '[]';
     } else if ( objectTypeMatch ) {
         return '{ [key: ' + objectTypeMatch[2] + ']: ' + objectTypeMatch[3] + '; }';
-    } else if ( javaType.indexOf('[') === -1 && javaType.indexOf('<') === -1 ) {
-        return javaType; // returning another DTO
     } else {
-        reportError('Unable to handle Java type ' + javaType);
-        return 'any';
+        return javaType;
     }
 }
 
@@ -60,15 +57,21 @@ function transform(javaClass) {
 
     var classNameRegex = /public (?:abstract\s+)?class (\w+)/;
     var classWithSuperclassRegex = /public (?:abstract\s+)?class (\w+).*?( extends (\w+))/;
+    var enumRegex = /public enum (\w+)/;
+    var enumMatch;
+
     var classNameMatch = javaClass.match(classNameRegex);
     var className;
 
-    if ( !classNameMatch ) {
+    if ( classNameMatch ) {
+        className = classNameMatch[1];
+        currentClassName = className;        
+    } else if ( enumMatch = javaClass.match(enumRegex) ) {
+        className = enumMatch[1];
+        return 'type ' + ( prefixInterfaces ? 'I' + className : className) + ' = string;';
+    } else {
         reportError('Unable to parse ' + javaClass);
         return '';
-    } else {
-        className = classNameMatch[1];
-        currentClassName = className;
     }
 
     var inheritanceMatch = javaClass.match(classWithSuperclassRegex);

@@ -31,7 +31,7 @@ describe('java2typescript-trivial', function() {
 	    });
 	});
 
-	it('should emit errors and fall back to "any" type (where applicable) when it cannot handle a case', function(done) {
+	it('should emit an error when it cannot process an input file', function(done) {
 		var errors = 0;
 
 		var stream = gulp.src('test/input/ErrorTest.java')
@@ -45,7 +45,7 @@ describe('java2typescript-trivial', function() {
 	    	var output = fs.readFileSync('test/output/ErrorTest.d.ts.errors', { encoding: 'utf8'} );
 	    	var expected = fs.readFileSync('test/expected/ErrorTest.d.ts.errors', { encoding: 'utf8'} );
 
-	    	expect(errors).toEqual(2);
+	    	expect(errors).toEqual(1);
 	    	expect(output).toEqual(expected);
 	    	done();
 	    });
@@ -89,6 +89,20 @@ describe('java2typescript-trivial', function() {
 	    stream.on('end', function() {
 	    	var output = fs.readFileSync('test/output/JsonTypeInfoTest.d.ts', { encoding: 'utf8'} );
 	    	var expected = fs.readFileSync('test/expected/JsonTypeInfoTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
+
+	it('should produce a typedef to string for enums', function(done) {
+		var stream = gulp.src('test/input/EnumTest.java')
+		    .pipe(j2t())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/EnumTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/EnumTest.d.ts', { encoding: 'utf8'} );
 
 	    	expect(output).toEqual(expected);
 	    	done();
