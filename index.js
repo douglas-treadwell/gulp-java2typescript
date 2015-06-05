@@ -68,7 +68,7 @@ function transform(javaClass) {
         currentClassName = className;        
     } else if ( enumMatch = javaClass.match(enumRegex) ) {
         className = enumMatch[1];
-        return 'type ' + ( prefixInterfaces ? 'I' + className : className) + ' = string;';
+        return 'type ' + ( prefixInterfaces ? 'I' + className : className) + ' = string;\n';
     } else {
         reportError('Unable to parse ' + javaClass);
         return '';
