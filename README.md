@@ -9,6 +9,13 @@ translating Java class to TypeScript interface manually, but which because of
 its known imperfections may not be able to handle all files (see below) and
 may sometimes require some manual adjustment of the output file (see below).
 
+Supported Cases
+---------------
+* getProperty and isBooleanProperty getters become fields of the interface
+* Inheritance: "class X extends Y" becomes "interface X extends Y"
+* Abstract classes
+* JsonTypeInfo annotation
+
 Unsupported Cases
 -----------------
 * Java files which contain multiple (including inner) classes
@@ -18,7 +25,7 @@ Cases Requiring Manual Intervention
 * Classes which have annotation @JsonTypeName (although this could be
     supported trivially even in this simple tool).
 * Likely classes using other annotations (but @JsonTypeInfo is supported).
-* Classes with getters returning collection types not detected by this tool.
+* Classes with getters returning collection or generic types not handled by this tool.
 
 Example Plugin Usage
 --------------------
