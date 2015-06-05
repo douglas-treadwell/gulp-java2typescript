@@ -108,4 +108,18 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+	it('should produce TypeScript interfaces for Java interfaces', function(done) {
+		var stream = gulp.src('test/input/InterfaceTest.java')
+		    .pipe(j2t())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/InterfaceTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/InterfaceTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
 });
