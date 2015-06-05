@@ -1,0 +1,4 @@
+interface ErrorTest {
+	LongArray: any;
+	TemplateType: any;
+}

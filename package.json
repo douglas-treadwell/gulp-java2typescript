@@ -1,0 +1,24 @@
+{
+  "name": "java2typescript-trivial",
+  "version": "0.1.0",
+  "description": "A gulp plugin for generating TypeScript interfaces corresponding to Java classes.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Beckon/java2typescript-trivial"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "author": "Douglas Treadwell <douglas.treadwell@gmail.com>",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.0.1",
+    "gulp-util": "^3.0.5",
+    "through2": "^0.6.5"
+  }
+}

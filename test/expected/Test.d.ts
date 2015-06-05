@@ -1,0 +1,31 @@
+interface Test {
+	IntegerPrimitive: number;
+	IntegerReference: number;
+	String: string;
+	BooleanPrimitive: boolean;
+	BooleanReference: boolean;
+	DoublePrimitive: number;
+	DoubleReference: number;
+	FloatPrimitive: number;
+	FloatReference: number;
+	CharPrimitive: string;
+	CharReference: string;
+	BytePrimitive: number;
+	ByteReference: number;
+	ShortPrimitive: number;
+	ShortReference: number;
+	LongPrimitive: number;
+	LongReference: number;
+	Set: String[];
+	HashSet: String[];
+	List: Integer[];
+	ArrayList: Integer[];
+	Queue: Long[];
+	ArrayQueue: Long[];
+	Deque: SomeClass[];
+	ArrayDeque: SomeClass[];
+	Collection: Something[];
+	ArrayCollection: Something[];
+	Map: { [key: String]: Integer; };
+	HashMap: { [key: String]: Integer; };
+}

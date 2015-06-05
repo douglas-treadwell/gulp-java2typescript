@@ -2,13 +2,18 @@
 
 var through = require("through2");
 var gulp_util = require("gulp-util");
+var PluginError = gulp_util.PluginError;
 
 var currentFile;
-var fileHasErrors = { };
+var currentFileErrors;
+var suppressConsoleErrors = false;
 
 function reportError(error) {
-    console.error('In ' + currentFile.path + ': ' + error);
-    fileHasErrors[currentFile.path] = true;
+    if ( !suppressConsoleErrors ) {
+        console.error('In ' + currentFile.path + ': ' + error);
+    }
+
+    currentFileErrors.push('In ' + currentFile.path + ': ' + error);
 }
 
 function typescriptType(javaType) {
@@ -49,6 +54,8 @@ function typescriptType(javaType) {
 }
 
 function transform(javaClass) {
+    currentFileErrors = [ ];
+
     var classNameRegex = /public class (\w+)/;
     var classWithSuperclassRegex = /public class (\w+).*?( extends (\w+))/;
     var classNameMatch = javaClass.match(classNameRegex);
@@ -98,19 +105,26 @@ function transform(javaClass) {
 }
 
 module.exports = function (options) {
-  return through.obj(function (file, enc, cb) {
-    currentFile = file;
+    suppressConsoleErrors = options && options.suppressConsoleErrors;
+    
+    return through.obj(function (file, enc, cb) {
+        currentFile = file;
 
-    var transformed = transform(file.contents.toString());
-    file.contents = new Buffer(transformed);
+        var transformed = transform(file.contents.toString());
+        file.contents = new Buffer(transformed);
 
-    if ( fileHasErrors[currentFile.path] ) {
-        file.path = gulp_util.replaceExtension(file.path, '.d.ts.errors');
-    } else {
-        file.path = gulp_util.replaceExtension(file.path, '.d.ts');
-    }
-    this.push(file);
+        if ( currentFileErrors.length > 0 ) {
+            file.path = gulp_util.replaceExtension(file.path, '.d.ts.errors');
 
-    cb();
-  });
+            for ( var i = 0; i < currentFileErrors.length; ++i ) {
+                this.emit('recoverable error', new PluginError('java2typescript-trivial', currentFileErrors[i]));
+            }
+        } else {
+            file.path = gulp_util.replaceExtension(file.path, '.d.ts');
+        }
+        
+        this.push(file);
+
+        cb();
+    });
 };
