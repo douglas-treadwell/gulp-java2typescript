@@ -40,6 +40,10 @@ Stand-alone usage:
 
 	gulp generate --files "test/input/T*.java" --outdir "test/output"
 
+The output can also be flattened into a single directory (no subdirectories corresponding to input subdirectories).
+
+	gulp generate --files "test/input/T*.java" --outdir "test/output" --flatten
+
 ### Options ###
 * suppressConsoleErrors: Do not log errors to the console, merely emit 'recoverable error' to the pipe. (See test/test.js.)
 * prefixInterfaces: Add I- prefix in front of interface names and interface file names. (Default is false.)
