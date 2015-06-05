@@ -25,8 +25,8 @@ Cases Requiring Manual Intervention
 * Likely classes using other annotations.
 * Classes with getters returning collection types not detected by this tool.
 
-Example Usage
--------------
+Example Plugin Usage
+--------------------
 
 Within a gulpfile:
 
@@ -36,14 +36,15 @@ Within a gulpfile:
 	    	.pipe(gulp.dest(outputDirectory));
 	});
 
-Stand-alone usage:
+### Options ###
+* suppressConsoleErrors: Do not log errors to the console, merely emit 'recoverable error' to the pipe. (See test/test.js.)
+* prefixInterfaces: Add I- prefix in front of interface names and interface file names. (Default is false.)
+
+Example Stand-alone Usage
+-------------------------
 
 	gulp generate --files "test/input/T*.java" --outdir "test/output"
 
 The output can also be flattened into a single directory (no subdirectories corresponding to input subdirectories).
 
 	gulp generate --files "test/input/T*.java" --outdir "test/output" --flatten
-
-### Options ###
-* suppressConsoleErrors: Do not log errors to the console, merely emit 'recoverable error' to the pipe. (See test/test.js.)
-* prefixInterfaces: Add I- prefix in front of interface names and interface file names. (Default is false.)
