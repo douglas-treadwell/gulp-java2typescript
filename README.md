@@ -36,5 +36,10 @@ Within a gulpfile:
 	    	.pipe(gulp.dest(outputDirectory));
 	});
 
+Stand-alone usage:
+
+	gulp generate --files "test/input/T*.java" --outdir "test/output"
+
 ### Options ###
 * suppressConsoleErrors: Do not log errors to the console, merely emit 'recoverable error' to the pipe. (See test/test.js.)
+* prefixInterfaces: Add I- prefix in front of interface names and interface file names. (Default is false.)
