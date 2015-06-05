@@ -1,4 +1,4 @@
-Java2TypeScript-Trivial
+Gulp-Java2TypeScript
 ============================
 
 This tool is a temporary solution (hopefully to be replaced very soon) which 
@@ -34,7 +34,7 @@ Within a gulpfile:
 
 	gulp.task('generate-typescript', function() {
 		return gulp.src(inputFiles)
-		    .pipe(j2tt()) // var j2tt = require('java2typescript-trivial');
+		    .pipe(j2t()) // var j2t = require('gulp-java2typescript');
 	    	.pipe(gulp.dest(outputDirectory));
 	});
 

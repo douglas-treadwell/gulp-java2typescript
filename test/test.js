@@ -1,11 +1,11 @@
 var gulp = require('gulp');
-var j2tt = require('../index');
+var j2t = require('../index');
 var fs = require('fs');
 
 describe('java2typescript-trivial', function() {
 	it('should produce an interface with fields for common public getters', function(done) {
 		var stream = gulp.src('test/input/Test.java')
-		    .pipe(j2tt())
+		    .pipe(j2t())
 	    	.pipe(gulp.dest('test/output'));
 
 	    stream.on('end', function() {
@@ -19,7 +19,7 @@ describe('java2typescript-trivial', function() {
 
 	it('should produce an interface that extends the interface of its superclass', function(done) {
 		var stream = gulp.src('test/input/SuperTest.java')
-		    .pipe(j2tt())
+		    .pipe(j2t())
 	    	.pipe(gulp.dest('test/output'));
 
 	    stream.on('end', function() {
@@ -35,7 +35,7 @@ describe('java2typescript-trivial', function() {
 		var errors = 0;
 
 		var stream = gulp.src('test/input/ErrorTest.java')
-		    .pipe(j2tt({
+		    .pipe(j2t({
 	    			suppressConsoleErrors: true
 		    	}))
 		      	.on('recoverable error', function() { ++errors; })
@@ -53,7 +53,7 @@ describe('java2typescript-trivial', function() {
 
 	it('should prefix interface names and file names with I- if requested', function(done) {
 		var stream = gulp.src('test/input/SuperTest.java')
-		    .pipe(j2tt({
+		    .pipe(j2t({
 		    	prefixInterfaces: true
 		    }))
 	    	.pipe(gulp.dest('test/output'));
@@ -69,7 +69,7 @@ describe('java2typescript-trivial', function() {
 
 	it('should produce an interface for an abstract class', function(done) {
 		var stream = gulp.src('test/input/AbstractTest.java')
-		    .pipe(j2tt())
+		    .pipe(j2t())
 	    	.pipe(gulp.dest('test/output'));
 
 	    stream.on('end', function() {
@@ -83,7 +83,7 @@ describe('java2typescript-trivial', function() {
 
 	it('should add a string field based on JsonTypeInfo', function(done) {
 		var stream = gulp.src('test/input/JsonTypeInfoTest.java')
-		    .pipe(j2tt())
+		    .pipe(j2t())
 	    	.pipe(gulp.dest('test/output'));
 
 	    stream.on('end', function() {
