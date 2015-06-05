@@ -11,6 +11,7 @@ may sometimes require some manual adjustment of the output file (see below).
 
 Supported Cases
 ---------------
+* Classes, enums, and interfaces.
 * getProperty and isBooleanProperty getters become fields of the interface
 * Inheritance: "class X extends Y" becomes "interface X extends Y"
 * Abstract classes
