@@ -55,7 +55,7 @@ function transform(javaClass) {
     var className;
 
     if ( !classNameMatch ) {
-        console.error('Unable to parse ' + javaClass + ' in ' + currentFile.path);
+        reportError('Unable to parse ' + javaClass);
         return;
     } else {
         className = classNameMatch[1];
