@@ -66,4 +66,18 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+	it('should produce an interface for an abstract class', function(done) {
+		var stream = gulp.src('test/input/AbstractTest.java')
+		    .pipe(j2tt())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/AbstractTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/AbstractTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
 });

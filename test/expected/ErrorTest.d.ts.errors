@@ -1,4 +1,4 @@
 interface ErrorTest {
-	LongArray: any;
-	TemplateType: any;
+	longArray: any;
+	templateType: any;
 }

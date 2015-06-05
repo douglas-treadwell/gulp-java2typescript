@@ -1,0 +1,2 @@
+interface AbstractTest extends Test {
+}

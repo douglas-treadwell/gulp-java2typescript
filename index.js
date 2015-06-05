@@ -58,14 +58,14 @@ function typescriptType(javaType) {
 function transform(javaClass) {
     currentFileErrors = [ ];
 
-    var classNameRegex = /public class (\w+)/;
-    var classWithSuperclassRegex = /public class (\w+).*?( extends (\w+))/;
+    var classNameRegex = /public (?:abstract\s+)?class (\w+)/;
+    var classWithSuperclassRegex = /public (?:abstract\s+)?class (\w+).*?( extends (\w+))/;
     var classNameMatch = javaClass.match(classNameRegex);
     var className;
 
     if ( !classNameMatch ) {
         reportError('Unable to parse ' + javaClass);
-        return;
+        return '';
     } else {
         className = classNameMatch[1];
         currentClassName = className;
@@ -85,7 +85,14 @@ function transform(javaClass) {
     var match;
 
     while ( match = getterRegex.exec(javaClass) ) {
-        getterTypes[match[2]] = match[1].trim();
+        (function() {
+            var returnType = match[1].trim();
+            var fieldForGetter = match[2];
+
+            fieldForGetter = fieldForGetter[0].toLowerCase() + fieldForGetter.substring(1);
+
+            getterTypes[fieldForGetter] = returnType;
+        })();
     }
 
     var _interface;
