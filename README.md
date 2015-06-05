@@ -27,6 +27,13 @@ Cases Requiring Manual Intervention
 * Likely classes using other annotations (but @JsonTypeInfo is supported).
 * Classes with getters returning collection or generic types not handled by this tool.
 
+Possible Future Support
+-----------------------
+* Public fields in addition to public getters
+* @JsonProperty, @JsonGetter, @JsonSetter renaming of fields
+* @JsonIgnore, @JsonIgnoreProperties
+* @JsonTypeName in a batched file processing mode
+
 Example Plugin Usage
 --------------------
 
