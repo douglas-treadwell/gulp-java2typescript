@@ -4,6 +4,12 @@ var through = require("through2");
 var gulp_util = require("gulp-util");
 
 var currentFile;
+var fileHasErrors = { };
+
+function reportError(error) {
+    console.error('In ' + currentFile.path + ': ' + error);
+    fileHasErrors[currentFile.path] = true;
+}
 
 function typescriptType(javaType) {
     var typeMap = {
@@ -37,7 +43,7 @@ function typescriptType(javaType) {
     } else if ( javaType.indexOf('[') === -1 && javaType.indexOf('<') === -1 ) {
         return javaType; // returning another DTO
     } else {
-        console.error('Unable to handle Java type ' + javaType + ' in ' + currentFile.path); // also throw or emit error?
+        reportError('Unable to handle Java type ' + javaType);
         return 'any';
     }
 }
@@ -50,7 +56,7 @@ function transform(javaClass) {
 
     if ( !classNameMatch ) {
         console.error('Unable to parse ' + javaClass + ' in ' + currentFile.path);
-        return '';
+        return;
     } else {
         className = classNameMatch[1];
     }
@@ -97,8 +103,14 @@ module.exports = function (options) {
 
     var transformed = transform(file.contents.toString());
     file.contents = new Buffer(transformed);
-    file.path = gulp_util.replaceExtension(file.path, '.d.ts'); // maybe change extension to .err if error while processing
+
+    if ( fileHasErrors[currentFile.path] ) {
+        file.path = gulp_util.replaceExtension(file.path, '.d.ts.errors');
+    } else {
+        file.path = gulp_util.replaceExtension(file.path, '.d.ts');
+    }
     this.push(file);
+
     cb();
   });
 };
