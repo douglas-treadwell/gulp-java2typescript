@@ -44,9 +44,9 @@ function typescriptType(javaType) {
     if ( mappedType ) {
         return mappedType;
     } else if ( arrayTypeMatch ) {
-        return arrayTypeMatch[2] + '[]';
+        return typescriptType(arrayTypeMatch[2]) + '[]';
     } else if ( objectTypeMatch ) {
-        return '{ [key: ' + objectTypeMatch[2] + ']: ' + objectTypeMatch[3] + '; }';
+        return '{ [key: ' + typescriptType(objectTypeMatch[2]) + ']: ' + typescriptType(objectTypeMatch[3]) + '; }';
     } else {
         return javaType;
     }

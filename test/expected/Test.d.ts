@@ -16,17 +16,17 @@ interface Test {
 	shortReference: number;
 	longPrimitive: number;
 	longReference: number;
-	set: String[];
-	hashSet: String[];
-	list: Integer[];
-	arrayList: Integer[];
-	queue: Long[];
-	arrayQueue: Long[];
+	set: string[];
+	hashSet: string[];
+	list: number[];
+	arrayList: number[];
+	queue: number[];
+	arrayQueue: number[];
 	deque: SomeClass[];
 	arrayDeque: SomeClass[];
 	collection: Something[];
 	arrayCollection: Something[];
-	map: { [key: String]: Integer; };
-	hashMap: { [key: String]: Integer; };
+	map: { [key: string]: number; };
+	hashMap: { [key: string]: SomeClass; };
 	restricted: boolean;
 }

@@ -113,7 +113,7 @@ public class Test {
 
 	}
 
-	public HashMap<String, Integer> getHashMap() {
+	public HashMap<String, SomeClass> getHashMap() {
 
 	}
 
