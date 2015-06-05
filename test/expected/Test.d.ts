@@ -28,4 +28,5 @@ interface Test {
 	arrayCollection: Something[];
 	map: { [key: String]: Integer; };
 	hashMap: { [key: String]: Integer; };
+	restricted: boolean;
 }

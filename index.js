@@ -78,7 +78,7 @@ function transform(javaClass) {
         inheritsFrom = inheritanceMatch[3];
     }
 
-    var getterRegex = /public ([\w\<\>\[\], ]+) get(\w+)/g;
+    var getterRegex = /public ([\w\<\>\[\], ]+) (?:get|is)([A-Z]\w+)/g;
 
     var getterTypes = { };
 

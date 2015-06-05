@@ -9,111 +9,115 @@ public class Test {
 
 	}
 
-	public String getString {
+	public String getString() {
 
 	}
 
-	public boolean getBooleanPrimitive {
+	public boolean getBooleanPrimitive() {
 
 	}
 
-	public Boolean getBooleanReference {
+	public Boolean getBooleanReference() {
 
 	}
 
-	public double getDoublePrimitive {
+	public double getDoublePrimitive() {
 
 	}
 
-	public double getDoubleReference {
+	public double getDoubleReference() {
 
 	}
 
-	public float getFloatPrimitive {
+	public float getFloatPrimitive() {
 
 	}
 
-	public Float getFloatReference {
+	public Float getFloatReference() {
 
 	}
 
-	public char getCharPrimitive {
+	public char getCharPrimitive() {
 
 	}
 
-	public Char getCharReference {
+	public Char getCharReference() {
 
 	}
 
-	public byte getBytePrimitive {
+	public byte getBytePrimitive() {
 
 	}
 
-	public Byte getByteReference {
+	public Byte getByteReference() {
 
 	}
 
-	public short getShortPrimitive {
+	public short getShortPrimitive() {
 
 	}
 
-	public Short getShortReference {
+	public Short getShortReference() {
 
 	}
 
-	public long getLongPrimitive {
+	public long getLongPrimitive() {
 
 	}
 
-	public Long getLongReference {
+	public Long getLongReference() {
 
 	}
 
-	public Set<String> getSet {
+	public Set<String> getSet() {
 
 	}
 
-	public HashSet<String> getHashSet {
+	public HashSet<String> getHashSet() {
 
 	}
 
-	public List<Integer> getList {
+	public List<Integer> getList() {
 
 	}
 
-	public ArrayList<Integer> getArrayList {
+	public ArrayList<Integer> getArrayList() {
 
 	}
 
-	public Queue<Long> getQueue {
+	public Queue<Long> getQueue() {
 
 	}
 
-	public ArrayQueue<Long> getArrayQueue {
+	public ArrayQueue<Long> getArrayQueue() {
 
 	}
 
-	public Deque<SomeClass> getDeque {
+	public Deque<SomeClass> getDeque() {
 
 	}
 
-	public ArrayDeque<SomeClass> getArrayDeque {
+	public ArrayDeque<SomeClass> getArrayDeque() {
 
 	}
 
-	public Collection<Something> getCollection {
+	public Collection<Something> getCollection() {
 
 	}
 
-	public ArrayCollection<Something> getArrayCollection {
+	public ArrayCollection<Something> getArrayCollection() {
 
 	}
 
-	public Map<String, Integer> getMap {
+	public Map<String, Integer> getMap() {
 
 	}
 
-	public HashMap<String, Integer> getHashMap {
+	public HashMap<String, Integer> getHashMap() {
+
+	}
+
+	public boolean isRestricted() {
 
 	}
 }
