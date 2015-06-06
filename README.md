@@ -1,13 +1,62 @@
 Gulp-Java2TypeScript
 ============================
 
-This tool is a temporary solution (hopefully to be replaced very soon) which 
-permits generating a TypeScript interface from a provided Java file.
+This tool is intended to support creation and (with an appropriate workflow) 
+maintenance of TypeScript interfaces that correspond to Java classes.
 
-It is a known-to-be-imperfect solution which is intended to be better than
-translating Java class to TypeScript interface manually, but which because of
-its known imperfections may not be able to handle all files (see below) and
-may sometimes require some manual adjustment of the output file (see below).
+The goal of this tool was merely to be more efficient than translating Java
+classes to TypeScript interfaces manually, which was a modest goal.  In
+practice it is significantly more efficient despite its limitations.
+
+Because this tool uses regular expressions to parse files (rather than a
+context free grammar, Java reflection, or Jackson's ObjectMapper) it inherits
+regular expressions' limitations.  Most of these can probably be worked around
+in future versions, but with increasing complexity.  For example, parsing files
+with inner classes is a natural weak area for regular expressions.  For now this
+tool focuses on its natural strengths, with some exceptions.
+
+In practice this tool can parse most files and when it cannot it is able to 
+parse a large part of the file, saving time from manual translation and
+improving the repeatability of translations.
+
+I intend to provide additional tools based on other technologies for the same
+purpose, but even then there should be a place for this tool.  Any text-parsing
+tool (for example, a context free grammar) is limited by the lack of runtime
+information (although again, with additional complexity many limitations could 
+be overcome).  Runtime information would be available using Java reflection
+or Jackson's ObjectMapper for example.  But the advantage
+of a text-parsing tool is its independence from the original language and
+tool chain.  In this case a simple plugin, which is easy to integrate into
+a JavaScript build process, can accomplish a significant part of a task that
+would likely require much more code and support infrastructure to accomplish
+in full.  Therefore, I present this as an example of a good 80/20 solution.
+
+Suggested Workflow
+------------------
+
+I suggest using three directories related to the generated TypeScript files.
+
+	1. /auto: Where the output of this tool is put directly.
+	2. /fixed: Fixed versions of .d.ts.error files from /auto.
+	3. /manual: Fully manually created interfaces related to those in /auto.
+
+Use this tool to generate interfaces for selected Java files, then look for any
+.d.ts.error files in /auto.  Leave them there and commit all these files in Git
+(or the equivalent in your VCS).  This provides a historical record of changes to
+the tool's output, including to the error files.
+
+Copy the .d.ts.error files to /fixed and manually adjust them so that they
+include all the properties you need.  Of course these should also be committed.
+
+If there are other interfaces required by the generated interfaces, but which
+cannot be effectively processed by this tool, create them manually and put them
+in /manual.  Of course these should also be committed.
+
+As Java classes change, re-running this tool will update the /auto files.  If
+Java files that produce .d.ts.error files are changed, the changes will need to
+be manually merged into /fixed.  Classes may change such that they no longer
+produce errors and no longer require a modified file in /fixed, or so that they
+do.
 
 Supported Cases
 ---------------
