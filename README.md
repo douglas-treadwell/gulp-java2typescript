@@ -2,7 +2,9 @@ Gulp-Java2TypeScript
 ============================
 
 This tool is intended to support creation and (with an appropriate workflow) 
-maintenance of TypeScript interfaces that correspond to Java classes.
+maintenance of TypeScript interfaces that correspond to Java classes, so that
+JavaScript code can be statically checked for compatibility with
+server-provided data objects.
 
 The goal of this tool was merely to be more efficient than translating Java
 classes to TypeScript interfaces manually, which was a modest goal.  In
