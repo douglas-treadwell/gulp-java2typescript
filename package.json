@@ -20,5 +20,12 @@
     "gulp-jasmine": "^2.0.1",
     "gulp-util": "^3.0.5",
     "through2": "^0.6.5"
+  },
+  "dependencies": {
+    "gulp-flatten": "0.0.4",
+    "gulp-if": "^1.2.5",
+    "gulp-util": "^3.0.5",
+    "through2": "^0.6.5",
+    "yargs": "^3.10.0"
   }
 }
