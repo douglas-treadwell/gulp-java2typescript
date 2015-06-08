@@ -123,7 +123,7 @@ describe('java2typescript-trivial', function() {
 	    });
 	});
 
-		it('should not define properties for static methods', function(done) {
+	it('should not define properties for static methods', function(done) {
 		var stream = gulp.src('test/input/StaticMethodTest.java')
 		    .pipe(j2t())
 	    	.pipe(gulp.dest('test/output'));
