@@ -45,9 +45,11 @@ Example Plugin Usage
 
 Within a gulpfile:
 
+	var j2t = require('gulp-java2typescript');
+	
 	gulp.task('generate-typescript', function() {
 		return gulp.src(inputFiles)
-		    .pipe(j2t()) // var j2t = require('gulp-java2typescript');
+		    .pipe(j2t())
 	    	.pipe(gulp.dest(outputDirectory));
 	});
 
