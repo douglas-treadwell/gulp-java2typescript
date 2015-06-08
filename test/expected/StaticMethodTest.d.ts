@@ -1,0 +1,3 @@
+interface StaticMethodTest {
+	nonStaticMethod: boolean;
+}

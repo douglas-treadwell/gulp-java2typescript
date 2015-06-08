@@ -122,4 +122,18 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+		it('should not define properties for static methods', function(done) {
+		var stream = gulp.src('test/input/StaticMethodTest.java')
+		    .pipe(j2t())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/StaticMethodTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/StaticMethodTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
 });
