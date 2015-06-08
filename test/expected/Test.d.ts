@@ -16,6 +16,7 @@ interface Test {
 	shortReference: number;
 	longPrimitive: number;
 	longReference: number;
+	bigDecimal: number;
 	set: string[];
 	hashSet: string[];
 	list: number[];

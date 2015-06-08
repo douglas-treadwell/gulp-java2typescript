@@ -20,15 +20,16 @@ function reportError(error) {
 
 function typescriptType(javaType) {
     var typeMap = {
-        'byte'   : 'number',
-        'short'  : 'number',
-        'int'    : 'number',
-        'integer': 'number', // this would be 'Integer': 'integer', but we're comparing lowercase inputs
-        'long'   : 'number',
-        'float'  : 'number',
-        'double' : 'number',
-        'boolean': 'boolean',
-        'char'   : 'string',
+        'byte'       : 'number',
+        'short'      : 'number',
+        'int'        : 'number',
+        'integer'    : 'number', // this would be 'Integer': 'integer', but we're comparing lowercase inputs
+        'long'       : 'number',
+        'bigdecimal' : 'number',
+        'float'      : 'number',
+        'double'     : 'number',
+        'boolean'    : 'boolean',
+        'char'       : 'string',
 
         'string' : 'string', // this would be 'String': 'string', but we're comparing lowercase inputs
     };

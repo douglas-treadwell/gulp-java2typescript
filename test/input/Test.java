@@ -69,6 +69,10 @@ public class Test {
 
 	}
 
+	public BigDecimal getBigDecimal() {
+
+	}
+
 	public Set<String> getSet() {
 
 	}
