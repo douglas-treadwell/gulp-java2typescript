@@ -124,4 +124,8 @@ public class Test {
 	public boolean isRestricted() {
 
 	}
+
+	public byte[] getByteArray() {
+		
+	}
 }

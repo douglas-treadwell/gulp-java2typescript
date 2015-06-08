@@ -36,11 +36,13 @@ function typescriptType(javaType) {
 
     var arrayTypeRegex  = /(\w*Set|\w*List|\w*Queue|\w*Deque|\w*Collection)<(\w+)>/;
     var objectTypeRegex = /(\w*Map)<(\w+),\s*(\w+)>/;
+    var simpleArrayRegex = /(\w[a-zA-Z0-9]+)\[\s*\]/;
 
     var mappedType = typeMap[javaType.toLowerCase()];
 
     var arrayTypeMatch = javaType.match(arrayTypeRegex);
     var objectTypeMatch = javaType.match(objectTypeRegex);
+    var simpleArrayMatch = javaType.match(simpleArrayRegex);
 
     if ( mappedType ) {
         return mappedType;
@@ -48,6 +50,8 @@ function typescriptType(javaType) {
         return typescriptType(arrayTypeMatch[2]) + '[]';
     } else if ( objectTypeMatch ) {
         return '{ [key: ' + typescriptType(objectTypeMatch[2]) + ']: ' + typescriptType(objectTypeMatch[3]) + '; }';
+    } else if ( simpleArrayMatch ) {
+        return typescriptType(simpleArrayMatch[1]) + '[]';
     } else {
         return javaType;
     }

@@ -30,4 +30,5 @@ interface Test {
 	map: { [key: string]: number; };
 	hashMap: { [key: string]: SomeClass; };
 	restricted: boolean;
+	byteArray: number[];
 }
