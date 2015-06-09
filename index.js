@@ -34,7 +34,7 @@ function typescriptType(javaType) {
         'string' : 'string', // this would be 'String': 'string', but we're comparing lowercase inputs
     };
 
-    var arrayTypeRegex  = /(\w*Set|\w*List|\w*Queue|\w*Deque|\w*Collection)<(\w+)>/;
+    var arrayTypeRegex  = /(\w*Set|\w*List|\w*Queue|\w*Deque|\w*Collection)<([\w\<\>]+)>/;
     var objectTypeRegex = /(\w*Map)<(\w+),\s*(\w+)>/;
     var simpleArrayRegex = /(\w[a-zA-Z0-9]+)\[\s*\]/;
 

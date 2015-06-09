@@ -130,6 +130,10 @@ public class Test {
 	}
 
 	public string getURL() {
+
+	}
+
+	public List<List<String>> getListOfLists() {
 		
 	}
 }

@@ -32,4 +32,5 @@ interface Test {
 	restricted: boolean;
 	byteArray: number[];
 	url: string;
+	listOfLists: string[][];
 }
