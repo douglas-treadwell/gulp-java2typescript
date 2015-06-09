@@ -136,4 +136,18 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+	it('should ignore getters annotated with @JsonIgnore', function(done) {
+		var stream = gulp.src('test/input/JsonIgnoreGetterTest.java')
+		    .pipe(j2t())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/JsonIgnoreGetterTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/JsonIgnoreGetterTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
 });

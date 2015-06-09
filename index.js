@@ -96,20 +96,21 @@ function transform(javaClass) {
         fieldTypes[ jsonTypeInfoMatch[1] ] = 'string';
     }
 
-    var getterRegex = /public (static )?([\w\<\>\[\], ]+) (?:get|is)([A-Z]\w+)/g;
+    var getterRegex = /\s*(@JsonIgnore)?\s*public (static )?([\w\<\>\[\], ]+) (?:get|is)([A-Z]\w+)/g;
 
     var match;
 
     while ( match = getterRegex.exec(javaClass) ) {
         (function() {
-            var isStatic = match[1] && ( match[1].trim() === 'static' );
+            var isStatic = match[2];
+            var isIgnored = match[1];
 
-            if ( isStatic ) {
+            if ( isStatic || isIgnored ) {
                 return;
             }
 
-            var returnType = match[2].trim();
-            var fieldForGetter = match[3];
+            var returnType = match[3].trim();
+            var fieldForGetter = match[4];
 
             fieldForGetter = fieldForGetter[0].toLowerCase() + fieldForGetter.substring(1);
 
