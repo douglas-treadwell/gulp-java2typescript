@@ -31,4 +31,5 @@ interface Test {
 	hashMap: { [key: string]: SomeClass; };
 	restricted: boolean;
 	byteArray: number[];
+	url: string;
 }

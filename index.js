@@ -57,6 +57,19 @@ function typescriptType(javaType) {
     }
 }
 
+function lowercaseLeadingLetters(string) {
+    // leading uppercase letters should be lowercased, not just the first letter
+
+    var leadingUpperCaseRegex = /[A-Z]+/;
+    var leadingUpperCaseMatch = string.match(leadingUpperCaseRegex)[0];
+
+    if ( !leadingUpperCaseMatch ) { // already has leading lowercase letters
+        return string;
+    }
+
+    return leadingUpperCaseMatch.toLowerCase() + string.substring(leadingUpperCaseMatch.length);
+}
+
 function transform(javaClass) {
     currentFileErrors = [ ];
 
@@ -112,7 +125,7 @@ function transform(javaClass) {
             var returnType = match[3].trim();
             var fieldForGetter = match[4];
 
-            fieldForGetter = fieldForGetter[0].toLowerCase() + fieldForGetter.substring(1);
+            fieldForGetter = lowercaseLeadingLetters(fieldForGetter);
 
             fieldTypes[fieldForGetter] = returnType;
         })();

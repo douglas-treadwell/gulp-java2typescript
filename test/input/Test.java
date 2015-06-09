@@ -126,6 +126,10 @@ public class Test {
 	}
 
 	public byte[] getByteArray() {
+
+	}
+
+	public string getURL() {
 		
 	}
 }
