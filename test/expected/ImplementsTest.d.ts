@@ -1,0 +1,2 @@
+interface ImplementsTest extends AnInterface {
+}

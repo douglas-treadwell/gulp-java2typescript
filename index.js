@@ -73,30 +73,26 @@ function lowercaseLeadingLetters(string) {
 function transform(javaClass) {
     currentFileErrors = [ ];
 
-    var classNameRegex = /public (?:(?:abstract\s+)?class|interface) (\w+)/;
-    var classWithSuperclassRegex = /public (?:(?:abstract\s+)?class|interface) (\w+).*?( extends (\w+(\s*,\s*\w+)*))/;
+    var classRegex = /public (?:(?:abstract\s+)?class|interface) (\w+)( extends (\w+(?:\s*,\s*\w+)*))?( implements (\w+(?:\s*,\s*\w+)*))?/;
     var enumRegex = /public enum (\w+)/;
     var enumMatch;
 
-    var classNameMatch = javaClass.match(classNameRegex);
-    var className;
+    var classMatch = javaClass.match(classRegex);
+    var className,
+        inheritsFrom,
+        implementsInterfaces;
 
-    if ( classNameMatch ) {
-        className = classNameMatch[1];
-        currentClassName = className;        
+    if ( classMatch ) {
+        className = classMatch[1];
+        inheritsFrom = classMatch[3];
+        implementsInterfaces = classMatch[5];
+        currentClassName = className;
     } else if ( enumMatch = javaClass.match(enumRegex) ) {
         className = enumMatch[1];
         return 'declare type ' + ( prefixInterfaces ? 'I' + className : className) + ' = string;\n';
     } else {
         reportError('Unable to parse ' + javaClass);
         return '';
-    }
-
-    var inheritanceMatch = javaClass.match(classWithSuperclassRegex);
-    var inheritsFrom;
-
-    if ( inheritanceMatch ) {
-        inheritsFrom = inheritanceMatch[3];
     }
 
     var fieldTypes = { };
@@ -140,8 +136,12 @@ function transform(javaClass) {
         inheritsFrom = 'I' + inheritsFrom;
     }
 
-    if ( inheritsFrom ) {
+    if ( inheritsFrom && implementsInterfaces ) {
+        _interface = 'interface ' + interfaceName + ' extends ' + inheritsFrom + ', ' + implementsInterfaces + ' {\n';
+    } else if ( inheritsFrom ) {
         _interface = 'interface ' + interfaceName + ' extends ' + inheritsFrom + ' {\n';
+    } else if ( implementsInterfaces ) {
+        _interface = 'interface ' + interfaceName + ' extends ' + implementsInterfaces + ' {\n';
     } else {
         _interface = 'interface ' + interfaceName + ' {\n';
     }

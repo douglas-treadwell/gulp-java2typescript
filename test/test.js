@@ -164,4 +164,25 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+	it('should also extend TypeScript interfaces corresponding to implemented Java interfaces', function(done) {
+		var stream = gulp.src([
+				'test/input/ImplementsTest.java',
+				'test/input/ImplementsAndExtendsTest.java'
+			])
+		    .pipe(j2t())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/ImplementsTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/ImplementsTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+
+	    	output = fs.readFileSync('test/output/ImplementsAndExtendsTest.d.ts', { encoding: 'utf8'} );
+	    	expected = fs.readFileSync('test/expected/ImplementsAndExtendsTest.d.ts', { encoding: 'utf8'} );
+
+	    	done();
+	    });
+	});
 });
