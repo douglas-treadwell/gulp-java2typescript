@@ -74,7 +74,7 @@ function transform(javaClass) {
     currentFileErrors = [ ];
 
     var classNameRegex = /public (?:(?:abstract\s+)?class|interface) (\w+)/;
-    var classWithSuperclassRegex = /public (?:(?:abstract\s+)?class|interface) (\w+).*?( extends (\w+))/;
+    var classWithSuperclassRegex = /public (?:(?:abstract\s+)?class|interface) (\w+).*?( extends (\w+(\s*,\s*\w+)*))/;
     var enumRegex = /public enum (\w+)/;
     var enumMatch;
 

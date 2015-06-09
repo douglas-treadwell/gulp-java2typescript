@@ -150,4 +150,18 @@ describe('java2typescript-trivial', function() {
 	    	done();
 	    });
 	});
+
+	it('should handle interfaces that extend multiple other interfaces', function(done) {
+		var stream = gulp.src('test/input/MultipleExtendedInterfacesTest.java')
+		    .pipe(j2t())
+	    	.pipe(gulp.dest('test/output'));
+
+	    stream.on('end', function() {
+	    	var output = fs.readFileSync('test/output/MultipleExtendedInterfacesTest.d.ts', { encoding: 'utf8'} );
+	    	var expected = fs.readFileSync('test/expected/MultipleExtendedInterfacesTest.d.ts', { encoding: 'utf8'} );
+
+	    	expect(output).toEqual(expected);
+	    	done();
+	    });
+	});
 });
